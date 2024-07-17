@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Voice Book Reader
+Exec=bash -c "source path_to_virenv_folder/bin/activate; cd path_to_virenv_folder/workspace; python3 main.py"
+Icon=path_to_virenv_folder/workspace/icons/dark/headphones.ico
+Type=Application
+Terminal=false
+StartupNotify=true
