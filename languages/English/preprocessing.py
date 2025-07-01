@@ -15,12 +15,14 @@ from num2words import num2words
 
 __all__ = ["prepare_book", "prepare_sentence", "check_readable_symbols"]
 
-path.append(os.getcwd() + "/nltk_data")
+this_dir = os.path.dirname(__file__)                 # src/
+nltk_data_path = os.path.join(this_dir, "nltk_data") # src/nltk_data
+path.append(nltk_data_path)
 
 
 def numbers_to_words(text):
     """Find all numeric values and replace them by words."""
-    for match in re.findall("[+-]?\d*[.,]?\d+", text):
+    for match in re.findall(r"[+-]?\d*[.,]?\d+", text):
         # "num2words" is a library that converts numbers to words.
         # It doesn"t work with commas.
         repl = num2words(re.sub(",", ".", match), lang="en")

@@ -1,4 +1,6 @@
 # Voice Book Reader (Digital Narrator)
+![CI](https://github.com/ykysny/Voice-Book-Reader/actions/workflows/tests.yml/badge.svg)
+
 A simple text-to-speech app that reads books.
 It is just a GUI (PySide6/Qt) for the amazing TTS "silero-models" (https://github.com/snakers4/silero-models).
 
