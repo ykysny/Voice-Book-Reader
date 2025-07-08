@@ -11,12 +11,10 @@ __all__ = ["text_to_speech", "get_settings", "set_settings"]
 
 device = torch.device("cpu")
 torch.set_num_threads(os.cpu_count())
-model = torch.package.PackageImporter("v3_en.pt").load_pickle("tts_models", "model")
-model.to(device)
 
 # 8000, 24000, 48000
 SAMPLE_RATE = 48000
-speaker = None
+speaker, model = None, None
 
 
 def text_to_speech(sentence):
@@ -33,7 +31,7 @@ def get_settings():
     return {"speaker": speaker_list}
 
 
-def set_settings(parameter, value):
+def set_settings(parameter, value, core_dir):
     """Receive the settings from the settings window."""
     match parameter:
         case "speaker":
@@ -41,3 +39,10 @@ def set_settings(parameter, value):
             
             # Cut the "Speaker: ".
             speaker = value[9:]
+    global model
+
+    model = torch.package.PackageImporter(str(core_dir) + "/" +"v3_en.pt").load_pickle(
+        "tts_models",
+        "model"
+    )
+    model.to(device)

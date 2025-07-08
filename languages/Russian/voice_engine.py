@@ -31,7 +31,7 @@ def get_settings():
     return {"speaker": speaker_list, "voice_model": voice_model_list}
 
 
-def set_settings(parameter, value):
+def set_settings(parameter, value, core_dir):
     """Receive the settings from the settings window."""
     match parameter:
         case "speaker":
@@ -43,6 +43,6 @@ def set_settings(parameter, value):
             global voice_model, model
             
             # Cut the "Voice model: ".
-            voice_model = value[13:] + ".pt"
+            voice_model = str(core_dir) + "/" + value[13:] + ".pt"
             model = torch.package.PackageImporter(voice_model).load_pickle("tts_models", "model")
             model.to(device)

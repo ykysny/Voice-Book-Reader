@@ -9,15 +9,10 @@ Russian version.
 import re
 import os
 from nltk.tokenize import sent_tokenize
-from nltk.data import path
 from num2words import num2words
 
 
 __all__ = ["prepare_book", "prepare_sentence", "check_readable_symbols"]
-
-this_dir = os.path.dirname(__file__)                 # src/
-nltk_data_path = os.path.join(this_dir, "nltk_data") # src/nltk_data
-path.append(nltk_data_path)
 
 
 def single_latin_to_cyrillic(text):

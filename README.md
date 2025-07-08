@@ -1,73 +1,124 @@
 # Voice Book Reader (Digital Narrator)
+
 ![CI](https://github.com/ykysny/Voice-Book-Reader/actions/workflows/tests.yml/badge.svg)
 
-A simple text-to-speech app that reads books.
-It is just a GUI (PySide6/Qt) for the amazing TTS "silero-models" (https://github.com/snakers4/silero-models).
+**Voice Book Reader** is a simple graphical text-to-speech (TTS) application that reads books aloud.
 
+It provides a user-friendly GUI (built with PySide6/Qt) for the high-quality [Silero TTS models](https://github.com/snakers4/silero-models). While minimal in design, the app requires significant storage due to dependencies like PyTorch.
 
 https://github.com/ykysny/Voice-Book-Reader/assets/174832664/f53cf66e-29cd-44ae-b385-3feff8c7b5c3
 
+---
 
 ## Features
-- you can read several books at onсe (app remembers the last sentence and the speaker for each book)
-- supported languages: English (default), Russian
-- it is easy to add a new language, change the TTS model or the text preprocessing
-- dark and light themes
+
+- Read multiple books simultaneously — the app remembers the last sentence and speaker for each one.
+- Supported languages: English (default) and Russian.
+- Easy to extend: add new languages, swap TTS models, or customize preprocessing.
+- Supports both dark and light themes.
+
+---
 
 ## Installation
-- create a virtual environment:
-```
-python3 -m venv path_to_virenv_folder
-```
-- activate the virtual environment:
-```
-source path_to_virenv_folder/bin/activate
-```
-- install dependencies (or you can check requirements.txt):
-```
-pip install sounddevice nltk num2words numpy pyside6 torch torchaudio
-```
-- put the "workspace" folder into the path_to_virenv_folder
-- download TTS models:  
-English: https://models.silero.ai/models/tts/en/v3_en.pt  
-Russian: https://models.silero.ai/models/tts/ru/v4_ru.pt and https://models.silero.ai/models/tts/ru/v3_1_ru.pt
-- put TTS models into the "workspace" folder
+
+1. **Create a virtual environment:**
+   ```bash
+   python3 -m venv path_to_virenv_folder
+   ```
+
+2. **Activate the virtual environment:**
+   ```bash
+   source path_to_virenv_folder/bin/activate
+   ```
+
+3. **Install dependencies:**
+
+   - **Option 1: Install manually**
+     ```bash
+     pip install sounddevice nltk num2words numpy pyside6 torch torchaudio
+     ```
+
+   - **Option 2: Install from `requirements.txt`**
+     ```bash
+     pip install -r requirements.txt
+     ```
+
+4. **Place the** `src` **folder into** `path_to_virenv_folder/workspace`.
+
+---
 
 ## Usage
-- activate the virtual environment:
-```
-source path_to_virenv_folder/bin/activate
-```
-  go to the app folder and run:
-```
-cd path_to_env_folder/workspace
-python3 main.py
-```
-- or you can use the shortcut "VBR.desktop" to launch the app in GNU/Linux:
-```
-[Desktop Entry]
-Name=Voice Book Reader
-Exec=bash -c "source path_to_virenv_folder/bin/activate; cd path_to_virenv_folder/workspace; python3 main.py"
-Icon=path_to_virenv_folder/workspace/icons/dark/headphones.ico
-Type=Application
-Terminal=false
-StartupNotify=true
-```
+
+1. **Activate the virtual environment:**
+   ```bash
+   source path_to_virenv_folder/bin/activate
+   ```
+
+2. **Run the app:**
+   ```bash
+   cd path_to_virenv_folder/workspace
+   python -m src.main
+   ```
+
+---
+
+### Optional: Desktop Shortcut for GNU/Linux
+
+A ready-to-use shortcut file, `VBR.desktop`, is included in the root of this project.
+
+To use it:
+
+1. Open the file and update the paths to match your environment (`path_to_virenv_folder`).
+2. *(Optional)* If your system requires it, make the file executable:
+   ```bash
+   chmod +x VBR.desktop
+   ```
+
+---
+
 ## Details
-- tested on GNU/Linux (Mint)
-- books must be in the "books" folder
-- only .txt books are supported(
-- when the certain book is removed from "books" folder, its settings are deleted
-- "nltk_data" folder is need for the text preprocessing (nltk library)
-- the Russian TTS model "v4_ru.pt" is more fast, than the "v3_1_ru.pt", but is less qualitative
-- the total size of the virtual environment folder is 6,2 GB (PyTorch is about 5 GB).
 
-## How to switch language to Russian
-Copy and replace files from the "languages/Russian" folder into the "workspace" folder.
+- Tested on GNU/Linux (Linux Mint).
+- Books must be placed in the `books` folder.
+- Only `.txt` files are supported.
+- When a book is removed from the `books` folder, its saved settings are also deleted.
+- The `book_samples` folder contains classic books in the public domain, available for free.
+- The `languages` folder contains files for the English and Russian versions.
+- The `nltk_data` folder is required for text preprocessing with the NLTK library.
+- The Russian TTS model `v4_ru.pt` is faster than `v3_1_ru.pt`, but has lower audio quality.
+- The total size of the virtual environment is approximately **6.2 GB** (PyTorch accounts for around 5 GB).
+- You can download TTS models here:  
+  - [English: v3_en.pt](https://models.silero.ai/models/tts/en/v3_en.pt)  
+  - [Russian: v4_ru.pt](https://models.silero.ai/models/tts/ru/v4_ru.pt)  
+  - [Russian: v3_1_ru.pt](https://models.silero.ai/models/tts/ru/v3_1_ru.pt)
 
-## How to add a new language
-You only need to rewrite "voice_engine.py" and "preprocessing.py" (6 small export functions).
-You can use your TTS model or find out what languages are available at the "silero-models" project.
+---
 
-##
-Icon pack: Qvadrons Icons by EpicCoders (https://icon-icons.com/pack/Qvadrons-Icons/789)
+## Switching the App to Russian
+
+Copy and overwrite the files from:
+
+```bash
+languages/Russian/
+```
+
+into:
+
+```bash
+workspace/src/core/
+```
+
+---
+
+## Adding a New Language
+
+To add a new language, modify `voice_engine.py` and `preprocessing.py`. Only 6 small export functions need to be updated.  
+You can use your own TTS model or check available languages at the [Silero models project](https://github.com/snakers4/silero-models).
+
+---
+
+## Credits
+
+Icon pack: [Qvadrons Icons by EpicCoders](https://icon-icons.com/pack/Qvadrons-Icons/789)
+
+---
